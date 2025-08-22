@@ -8,7 +8,7 @@ import App from './App.vue'
 import router from './router'
 
 // STYLES
-import './assets/tailwind.css'
+import './style.css'
 
 // FONTAWESOME
 import './icons'
