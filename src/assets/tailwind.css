@@ -1,3 +1,83 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-color: #F8F4EF;
+    --secondary-color: #704C33;
+    --tertiary-color: #DEC9B6;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen m-0 flex flex-col box-border font-normal text-base;
+    font-family: "Cormorant Garamond", serif;
+  }
+
+  @screen md {
+    body {
+      font-size: 18px;
+    }
+  }
+
+  @screen xl {
+    body {
+      font-size: 20px;
+    }
+  }
+
+  ul {
+    @apply list-none m-0 p-0;
+  }
+
+  figure {
+    @apply m-0;
+  }
+
+  img {
+    @apply max-w-full h-auto object-contain;
+  }
+
+  a {
+    @apply no-underline;
+    color: inherit;
+  }
+
+  /* Titres : mieux d’appliquer au cas par cas avec des classes Tailwind.
+     Si tu veux des valeurs par défaut globales : */
+  h2 {
+    @apply m-0 p-5 text-[26px] font-semibold;
+    color: var(--secondary-color);
+  }
+
+  @screen md {
+    h2 {
+      @apply text-[28px];
+    }
+  }
+
+  h3 {
+    @apply m-0 p-5 text-[24px] font-semibold;
+  }
+
+  @screen md {
+    h3 {
+      @apply text-[22px];
+    }
+  }
+
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    border: 0 !important;
+  }
+}
