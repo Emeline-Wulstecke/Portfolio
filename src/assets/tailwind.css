@@ -1,10 +1,10 @@
-@import 'tailwindcss';
+@import 'tailwindcss/preflight';
+@tailwind utilities;
 
-/* Tes bases */
 @layer base {
   :root {
-    --primary-color: #f8f4ef; /* fond clair */
-    --secondary-color: #704c33; /* texte principal */
+    --primary-color: #f8f4ef;
+    --secondary-color: #704c33;
     --tertiary-color: #dec9b6;
   }
 
@@ -15,18 +15,17 @@
   body {
     color: var(--secondary-color);
     background-color: var(--primary-color);
-
-    /* reste de ta base */
     @apply min-h-screen m-0 flex flex-col box-border font-normal text-base;
     font-family: 'Cormorant Garamond', serif;
   }
 
-  @screen md {
+  @media (min-width: 768px) {
     body {
       font-size: 18px;
     }
   }
-  @screen xl {
+
+  @media (min-width: 1280px) {
     body {
       font-size: 20px;
     }
@@ -35,12 +34,15 @@
   ul {
     @apply list-none m-0 p-0;
   }
+
   figure {
     @apply m-0;
   }
+
   img {
     @apply max-w-full h-auto object-contain;
   }
+
   a {
     @apply no-underline;
     color: inherit;
@@ -50,7 +52,8 @@
     @apply m-0 p-5 text-[26px] font-semibold;
     color: var(--secondary-color);
   }
-  @screen md {
+
+  @media (min-width: 768px) {
     h2 {
       @apply text-[28px];
     }
@@ -59,7 +62,8 @@
   h3 {
     @apply m-0 p-5 text-[24px] font-semibold;
   }
-  @screen md {
+
+  @media (min-width: 768px) {
     h3 {
       @apply text-[22px];
     }
