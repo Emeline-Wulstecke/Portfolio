@@ -1,11 +1,9 @@
 {
   "name": "portfolio",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
+  "homepage": "https://emeline-wulstecke.github.io/",
   "type": "module",
-  "engines": {
-    "node": "^20.19.0 || >=22.12.0"
-  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -16,6 +14,11 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.0.0",
+    "@fortawesome/free-brands-svg-icons": "^7.0.0",
+    "@fortawesome/free-regular-svg-icons": "^7.0.0",
+    "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "@fortawesome/vue-fontawesome": "^3.1.1",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
   },
