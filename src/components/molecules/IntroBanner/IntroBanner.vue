@@ -21,12 +21,10 @@ const { displayed: displayedSubtitle } = useTypewriter(subtitle, {
 </script>
 
 <template>
-  <!-- NEW: hauteur contrôlée + overflow-hidden -->
   <section
     id="banner"
-    class="relative flex justify-center w-full h-[38vh] md:h-[70vh] overflow-hidden"
+    class="relative flex justify-center w-full h-[38vh] md:h-[70vh] overflow-hidden mb-4"
   >
-    <!-- NEW: image en position absolue pour “cover” -->
     <figure class="absolute inset-0 m-0">
       <img
         :src="props.image"
@@ -39,9 +37,9 @@ const { displayed: displayedSubtitle } = useTypewriter(subtitle, {
     </figure>
 
     <div
-      class="relative z-10 flex flex-col items-center gap-1 md:gap-[40px] text-center w-full h-full justify-center px-4"
+      class="relative w-full z-10 px-4 top-[120px] right-[90px] text-center md:top-[220px] md:right-[230px]"
     >
-      <h1 class="text-1xl md:text-3xl ml-[60px] font-bold uppercase tracking-wide text-black">
+      <h1 class="text-xs md:text-3xl font-bold uppercase tracking-wide text-black">
         <span :class="{ 'type-cursor': !finishedTitle }">{{ displayedTitle }}</span>
       </h1>
       <p v-if="props.subtitle" class="text-sm md:text-xl text-black">
