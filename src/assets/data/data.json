@@ -107,21 +107,6 @@
     "portfolio": [
         {
             "id": 1,
-            "name": "Booki",
-            "texte": "Intégration d'une interface responsive.",
-            "title": "Objectifs pédagogiques:",
-            "objectif1": "Implémenter une interface responsive avec HTML et CSS",
-            "objectif2": "Intégrer du contenu conformément à une maquette avec HTML et CSS",
-            "objectif3": "Installer un environnement de développement front-end",
-            "objectif4": "Versionner son projet avec Git et Github",
-            "image": "/images/projects/booki.webp",
-            "alt": "image du site web Booki, d'hébergement",
-            "url": "https://booki-ew.vercel.app/",
-            "github": "https://github.com/Emeline-Wulstecke/Booki",
-            "category": "HTML | CSS"
-        },
-        {
-            "id": 2,
             "name": "Sophie Bluel",
             "texte": "Création d'une page web dynamique pour le site internet d'une architecte d'intérieur en utilisant JavaScript et en communiquant avec une API.",
             "title": "Objectifs pédagogiques:",
@@ -130,9 +115,22 @@
             "objectif3": "Récupérer les données utilisateurs dans le JavaScript via des formulaires",
             "image": "/images/projects/sophiebluel.webp",
             "alt": "image portrait de Sophie Bluel",
-            "url": "https://github.com/Emeline-Wulstecke/P6-Sophie_Buel",
             "github": "https://github.com/Emeline-Wulstecke/P6-Sophie_Buel",
             "category": "HTML | CSS | JS"
+        },
+        {
+            "id": 2,
+            "name": "Nina Carducci",
+            "texte": "Optimisation du référencement d’un site de photographe, en améliorant sa performance et son accessibilité.",
+            "title": "Objectifs pédagogiques:",
+            "objectif1": "Optimiser les performances d’un site web",
+            "objectif2": "Débugger un site web grâce aux Chrome DevTools",
+            "objectif3": "Rédiger un cahier de recette pour tester un site",
+            "image": "/images/projects/ninacarducci.webp",
+            "alt": "image du site Nina Carducci",
+            "url": "https://nina-carducci-ew.vercel.app/",
+            "github": "https://github.com/Emeline-Wulstecke/P9_Nina_Carducci",
+            "category": "SEO | PERFORMANCE"
         },
         {
             "id": 3,
@@ -151,15 +149,16 @@
         },
         {
             "id": 4,
-            "name": "Nina Carducci",
-            "texte": "Optimisation du référencement d’un site de photographe, en améliorant sa performance et son accessibilité.",
+            "name": "ArgentBank",
+            "texte": "Utilisation de React, Redux & API REST pour créer une expérience utilisateur dynamique, réactive et assurant une communication fluide entre le client et le serveur.",
             "title": "Objectifs pédagogiques:",
-            "objectif1": "Optimiser la performance d'un site web",
-            "image": "/images/projects/ninacarducci.webp",
-            "alt": "image du site Nina Carducci",
-            "url": "https://nina-carducci-ew.vercel.app/",
-            "github": "https://github.com/Emeline-Wulstecke/P9_Nina_Carducci",
-            "category": "SEO | Performance"
+            "objectif1": "Configurer des routes API pour la communication client / serveur",
+            "objectif2": "Implémenter la gestion des données avec Redux pour assurer le fonctionnement du front",
+            "objectif3": "Afficher les données du back end sur l'interface via des appels API",
+            "image": "/images/projects/argentbank.webp",
+            "alt": "image du site ArgentBank",
+            "github": "https://github.com/Emeline-Wulstecke/ArgentBank",
+            "category": "HTML | CSS | REACT REDUX"
         },
         {
             "id": 5,
@@ -173,21 +172,22 @@
             "alt": "image du site 724 event, site d'évènement",
             "url": "https://724events-ew.vercel.app/",
             "github": "https://github.com/Emeline-Wulstecke/P10_724_DEBUG",
-            "category": "Tests"
+            "category": "TESTS"
         },
         {
             "id": 6,
-            "name": "ArgentBank",
-            "texte": "Dans ce projet, j'ai travaillé sur le développement front-end d’une application bancaire en utilisant React et Redux pour créer une expérience utilisateur dynamique et réactive. Ma mission principale était d'intégrer le front-end avec le back-end via des appels API. J'ai également écrit des appels à l'API REST pour connecter les deux parties de l'application, assurant une communication fluide entre le client et le serveur.",
+            "name": "Booki",
+            "texte": "Intégration d'une interface responsive pour la création dela page d'accueil d'une agence de voyage",
             "title": "Objectifs pédagogiques:",
-            "objectif1": "Configurer des routes API pour la communication client / serveur",
-            "objectif2": "Implémenter la gestion des données avec Redux pour assurer le fonctionnement du front",
-            "objectif3": "Afficher les données du back end sur l'interface via des appels API",
-            "image": "/images/projects/argentbank.webp",
-            "alt": "image du site ArgentBank",
-            "url": "https://github.com/Emeline-Wulstecke/ArgentBank",
-            "github": "https://github.com/Emeline-Wulstecke/ArgentBank",
-            "category": "HTML| CSS | REACT REDUX"
+            "objectif1": "Implémenter une interface responsive avec HTML et CSS",
+            "objectif2": "Intégrer du contenu conformément à une maquette avec HTML et CSS",
+            "objectif3": "Installer un environnement de développement front-end",
+            "objectif4": "Versionner son projet avec Git et Github",
+            "image": "/images/projects/booki.webp",
+            "alt": "image du site web Booki, d'hébergement",
+            "url": "https://booki-ew.vercel.app/",
+            "github": "https://github.com/Emeline-Wulstecke/Booki",
+            "category": "HTML | CSS"
         },
         {
             "id": 7,
@@ -199,9 +199,8 @@
             "objectif3": "Afficher les données du back end sur l'interface via des appels API",
             "image": "/images/projects/grimoire.webp",
             "alt": "image du site Mon vieux grimoire",
-            "url": "https://github.com/Emeline-Wulstecke/vieux_grimoire",
             "github": "https://github.com/Emeline-Wulstecke/vieux_grimoire",
-            "category": "NODE JS| EXPRESS | MONGODB"
+            "category": "NODE JS | EXPRESS | MONGODB"
         }
     ]
 }

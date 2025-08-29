@@ -1,10 +1,20 @@
+export interface Project {
+  id: number
+  name: string
+  texte?: string
+  title?: string
+  objectif1?: string
+  objectif2?: string
+  objectif3?: string
+  objectif4?: string
+  image: string
+  alt: string
+  url?: string
+  github?: string
+  category: string
+}
+
 export interface ProjectCardProps {
-  project: {
-    id: number
-    image: string
-    alt: string
-    category: string
-    name: string
-  }
+  project: Project
   onCardClick?: () => void
 }
