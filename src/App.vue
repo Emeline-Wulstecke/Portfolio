@@ -4,6 +4,7 @@ import NavBar from './components/organisms/NavBar/NavBar.vue'
 import IntroBanner from './components/molecules/IntroBanner/IntroBanner.vue'
 import AboutMe from './components/organisms/AboutMe/AboutMe.vue'
 import ProjectSlider from './components/molecules/ProjectSlider.vue'
+import SkillsSelection from './components/molecules/SkillSelection/SkillSelection.vue'
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import ProjectSlider from './components/molecules/ProjectSlider.vue'
 
       <AboutMe title="About Me" aboutImg="/src/assets/images/about.png" buttonText="Learn More" />
       <ProjectSlider />
+      <SkillsSelection />
     </main>
   </div>
 </template>
