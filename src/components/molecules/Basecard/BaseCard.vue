@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TYPE
 import type { ProjectCardProps } from './BaseCard.types'
 
 const props = defineProps<ProjectCardProps>()
@@ -11,7 +12,7 @@ const handleClick = () => props.onCardClick?.()
     role="button"
     tabindex="0"
     @keydown.enter="handleClick"
-    class="bg-[var(--primary-color)] m-2 md:m-4 p-1.5 md:p-2 rounded-md overflow-hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+    class="bg-[var(--primary-color)] w-full max-w-sm h-[420px] flex flex-col justify-between m-2 md:m-4 p-2 rounded-md overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
   >
     <!-- IMAGE -->
     <img
@@ -23,12 +24,12 @@ const handleClick = () => props.onCardClick?.()
     />
 
     <!-- TEXTE -->
-    <figcaption class="flex flex-col items-center w-full">
-      <h3 class="text-lg font-semibold text-[var(--secondary-color)] py-4">
+    <figcaption class="flex flex-col items-center w-full mt-4">
+      <h3 class="text-lg font-semibold text-[var(--secondary-color)] text-center px-2">
         {{ props.project.name }}
       </h3>
       <p
-        class="text-sm px-3 py-2 border border-black rounded-[50%_20%_10%_40%/10%_40%_50%_20%] self-end"
+        class="text-sm px-3 py-2 mt-2 border border-black rounded-[50%_20%_10%_40%/10%_40%_50%_20%] self-end"
       >
         {{ props.project.category }}
       </p>
