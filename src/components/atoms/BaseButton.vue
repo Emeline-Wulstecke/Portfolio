@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
-  text: string
+  text?: string
   type?: 'button' | 'submit' | 'reset'
+  icon?: string
   disabled?: boolean
   loading?: boolean
 }>()
