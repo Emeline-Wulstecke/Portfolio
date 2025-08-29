@@ -21,87 +21,68 @@
     "skills": [
         {
             "name": "HTML",
-            "img": "../images/logos/html.webp",
-            "alt": "Logo HTML",
-            "url": "https://developer.mozilla.org/fr/docs/Web/HTML",
-            "category": "Front"
+            "img": "/images/logos/html.webp",
+            "alt": "Logo HTML"
         },
         {
             "name": "CSS",
-            "img": "../images/logos/css.webp",
-            "alt": "Logo CSS",
-            "url": "https://developer.mozilla.org/fr/docs/Web/CSS",
-            "category": "Front"
+            "img": "/images/logos/css.webp",
+            "alt": "Logo CSS"
         },
         {
-            "name": "SASS",
-            "img": "../images/logos/sass.webp",
-            "alt": "Logo Saas",
-            "url": "https://sass-lang.com/",
-            "category": "Front"
+            "name": "VUE JS",
+            "img": "/images/logos/vue.webp",
+            "alt": "Logo VUE"
+        },
+        {
+            "name": "TypeScript",
+            "img": "/images/logos/typeScript.webp",
+            "alt": "Logo TypeScript"
         },
         {
             "name": "JavaScript",
-            "img": "../images/logos/js.webp",
-            "alt": "Logo JavaScript",
-            "url": "https://developer.mozilla.org/fr/docs/Web/JavaScript",
-            "category": "Front"
+            "img": "/images/logos/js.webp",
+            "alt": "Logo JavaScript"
         },
         {
             "name": "React",
-            "img": "../images/logos/react.webp",
-            "alt": "Logo React",
-            "url": "https://fr.react.dev/",
-            "category": "Front"
+            "img": "/images/logos/react.webp",
+            "alt": "Logo React"
         },
         {
             "name": "Redux",
-            "img": "../images/logos/redux.webp",
-            "alt": "Logo Redux",
-            "url": "https://react-redux.js.org/",
-            "category": "Front"
+            "img": "/images/logos/redux.webp",
+            "alt": "Logo Redux"
         },
         {
-            "name": "Vite",
-            "img": "../images/logos/vite.webp",
-            "alt": "Logo vite",
-            "url": "https://v3.vitejs.dev/guide/",
-            "category": "Front"
+            "name": "Tailwind",
+            "img": "/images/logos/tailwind.webp",
+            "alt": "Logo Tailwind"
         },
         {
             "name": "MongoDB",
-            "img": "../images/logos/mongodb.webp",
-            "alt": "Logo mongodb",
-            "url": "https://www.mongodb.com/",
-            "category": "Autres"
+            "img": "/images/logos/mongodb.webp",
+            "alt": "Logo mongodb"
         },
         {
             "name": "Github",
-            "img": "../images/logos/github.webp",
-            "alt": "Logo Github",
-            "url": "https://github.com/Emeline-Wulstecke",
-            "category": "Autres"
+            "img": "/images/logos/github.webp",
+            "alt": "Logo Github"
         },
         {
             "name": "Figma",
-            "img": "../images/logos/figma.webp",
-            "alt": "Logo Figma",
-            "url": "https://www.figma.com/fr/",
-            "category": "Autres"
+            "img": "/images/logos/figma.webp",
+            "alt": "Logo Figma"
         },
         {
             "name": "Méthode Agile",
-            "img": "../images/logos/agile.webp",
-            "alt": "Logo agile",
-            "url": "https://manifesteagile.fr/",
-            "category": "Autres"
+            "img": "/images/logos/agile.webp",
+            "alt": "Logo agile"
         },
         {
             "name": "SEO",
-            "img": "../images/logos/seo.webp",
-            "alt": "Logo SEO",
-            "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=fr",
-            "category": "Autres"
+            "img": "/images/logos/seo.webp",
+            "alt": "Logo SEO"
         }
     ],
     "portfolio": [

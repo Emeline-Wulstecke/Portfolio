@@ -40,6 +40,7 @@ const toggleFlip = (index: number) => {
 
 <template>
   <section
+    id="portfolio"
     aria-labelledby="project-carousel-title"
     class="w-full bg-[var(--tertiary-color)] py-10 md:py-16 px-4 flex flex-col items-center"
   >
@@ -88,10 +89,11 @@ const toggleFlip = (index: number) => {
                   </h3>
                   <div
                     @click="() => toggleFlip(index)"
-                    class="w-8 h-8 rounded-full border border-[var(--secondary-color)] text-[var(--secondary-color)] bg-transparent flex items-center justify-center cursor-pointer transition hover:scale-110 focus:outline-none"
+                    @keydown.enter.space.prevent="toggleFlip(index)"
+                    class="w-8 h-8 rounded-full border border-[var(--secondary-color)] text-[var(--secondary-color)] bg-transparent flex items-center justify-center cursor-pointer transition hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black"
                     role="button"
                     tabindex="0"
-                    aria-label="Ouvrir le projet {{ project.name }}"
+                    :aria-label="`Ouvrir le projet ${project.name}`"
                   >
                     <font-awesome-icon icon="fa-solid fa-plus" class="text-sm" />
                   </div>
@@ -103,20 +105,21 @@ const toggleFlip = (index: number) => {
 
             <!-- Verso -->
             <div
-              class="absolute w-full h-full backface-hidden rotate-y-180 rounded-xl overflow-auto bg-[var(--primary-color)] p-4 text-blackshadow-xl flex flex-col justify-between"
+              class="absolute w-full h-full backface-hidden rotate-y-180 rounded-xl overflow-auto bg-[var(--primary-color)] p-4 text-black shadow-xl flex flex-col justify-between"
             >
               <div
                 @click="() => toggleFlip(index)"
-                class="w-8 h-8 rounded-full border border-[var(--secondary-color)] text-[var(--secondary-color)] bg-transparent flex items-center justify-center self-end cursor-pointer transition hover:scale-110 focus:outline-none"
+                @keydown.enter.space.prevent="toggleFlip(index)"
+                class="w-8 h-8 rounded-full border border-[var(--secondary-color)] text-[var(--secondary-color)] bg-transparent flex items-center justify-center self-end cursor-pointer transition hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black"
                 role="button"
                 tabindex="0"
-                aria-label="Fermer le projet {{ project.name }}"
+                :aria-label="`Fermer le projet ${project.name}`"
               >
                 <font-awesome-icon icon="fa-solid fa-xmark" />
               </div>
 
               <div class="flex flex-col gap-4">
-                <h3 class="text-xl font-bold mb-2 p-0 text--[var(--secondary-color)]">
+                <h3 class="text-xl font-bold mb-2 p-0 text-[var(--secondary-color)]">
                   {{ project.title }}
                 </h3>
                 <ul class="list-disc text-black list-inside text-[16px] space-y-1">
