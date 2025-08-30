@@ -5,6 +5,7 @@ import IntroBanner from './components/molecules/IntroBanner/IntroBanner.vue'
 import AboutMe from './components/organisms/AboutMe/AboutMe.vue'
 import ProjectSlider from './components/molecules/ProjectSlider.vue'
 import SkillsSelection from './components/molecules/SkillSelection/SkillSelection.vue'
+import ContactSection from './components/organisms/ContactSection/ContactSection.vue'
 </script>
 
 <template>
@@ -20,6 +21,7 @@ import SkillsSelection from './components/molecules/SkillSelection/SkillSelectio
       <AboutMe title="About Me" aboutImg="/src/assets/images/about.png" buttonText="Learn More" />
       <ProjectSlider />
       <SkillsSelection />
+      <ContactSection />
     </main>
   </div>
 </template>
