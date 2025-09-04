@@ -1,6 +1,8 @@
 <script setup lang="ts">
 // VUE
 import { ref } from 'vue'
+
+// TYPES
 import type { ProjectCardProps } from './BaseCard/BaseCard.types'
 
 // DATA
