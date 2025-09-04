@@ -6,7 +6,7 @@ const skills = data.skills
 </script>
 
 <template>
-  <section id="skills" class="relative bg-white py-10 pb-20 overflow-hidden">
+  <section id="skills" class="relative bg-white py-10 overflow-hidden">
     <h2 class="text-2xl font-bold text-center">Skills</h2>
     <SkillScroller :skills="skills" />
   </section>
