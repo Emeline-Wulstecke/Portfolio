@@ -39,11 +39,15 @@ onBeforeUnmount(() => {
       type="button"
       @click="scrollTop"
       :aria-label="ariaLabel"
+      aria-describedby="scroll-top-tooltip"
       class="group relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--secondary-color)] text-white shadow ring-1 ring-black/10 transition-transform duration-300 hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black focus-visible:ring-offset-[var(--primary-color)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
     >
-      <font-awesome-icon :icon="['fas', 'arrow-up']" aria-hidden="true" />
+      <font-awesome-icon :icon="['fas', 'arrow-up']" aria-hidden="true" class="text-sm" />
 
+      <!-- Tooltip -->
       <span
+        id="scroll-top-tooltip"
+        role="tooltip"
         class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 text-[13px] text-black opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:transition-none"
       >
         Revenir en haut
