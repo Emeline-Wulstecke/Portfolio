@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// TYPE
+// TYPES
 import type { ProjectCardProps } from './BaseCard.types'
 
 const props = defineProps<ProjectCardProps>()

@@ -1,6 +1,11 @@
 <script setup lang="ts">
+// VUE
 import { ref } from 'vue'
+
+// TYPES
 import type { BannerProps } from './IntroBanner.type'
+
+// HELPERS
 import { useTypewriter } from '@/helpers/useTypewriter'
 
 const props = defineProps<BannerProps>()
