@@ -1,9 +1,10 @@
 <script setup lang="ts">
+// IMAGES
 import logoUrl from '@/assets/images/logo.webp'
 
 const props = defineProps<{
-  src?: string // optionnel : tu peux passer une autre image si besoin
-  alt?: string // texte alternatif accessible
+  src?: string
+  alt?: string
 }>()
 
 // Valeurs par défaut

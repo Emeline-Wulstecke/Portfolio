@@ -4,7 +4,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    max?: number // px de scroll avant d’afficher le bouton
+    max?: number
     ariaLabel?: string
   }>(),
   {

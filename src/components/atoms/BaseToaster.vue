@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// VUE
 import { onMounted, ref } from 'vue'
 
 defineProps<{

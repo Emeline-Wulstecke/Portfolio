@@ -4,6 +4,8 @@ import data from '@/assets/data/data.json'
 
 // COMPONENTS
 import Link from '@/components/atoms/BaseLink.vue'
+
+// ICONS
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const currentYear = new Date().getFullYear()
