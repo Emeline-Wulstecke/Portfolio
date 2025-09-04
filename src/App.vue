@@ -17,10 +17,10 @@ import FooterSection from './components/organisms/Footer/FooterSection.vue'
       <IntroBanner
         title="Welcome to My Portfolio"
         subtitle="By Emeline"
-        image="/src/assets/images/banner.png"
+        image="/src/assets/images/banner.webp"
       />
 
-      <AboutMe title="About Me" aboutImg="/src/assets/images/about.png" buttonText="Learn More" />
+      <AboutMe title="About Me" aboutImg="/src/assets/images/about.webp" buttonText="Learn More" />
       <ProjectSlider />
       <SkillsSelection />
       <ContactSection />

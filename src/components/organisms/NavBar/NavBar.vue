@@ -1,7 +1,14 @@
 <script setup lang="ts">
+// VUE
 import { ref } from 'vue'
+
+// COMPONENTS
 import BaseLogo from '@/components/atoms/BaseLogo.vue'
+
+// DATA
 import data from '@/assets/data/data.json'
+
+// TYPES
 import type { InternalLink, SocialLink } from './NavBar.type'
 
 const internalLinks: InternalLink[] = [

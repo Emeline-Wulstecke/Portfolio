@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// COMPONENTS
 import BaseButton from '@/components/atoms/BaseButton.vue'
 
 defineEmits(['back'])
@@ -30,9 +31,8 @@ defineEmits(['back'])
       Je vous répondrai dans les plus brefs délais.
     </p>
 
-    <!-- Barre d’action en bas -->
+    <!-- Nouveau message -->
     <div class="flex justify-end w-full mt-6">
-      <!-- change `justify-end` en `justify-start` si tu préfères le bouton à gauche -->
       <BaseButton
         text="Nouveau message"
         size="small"

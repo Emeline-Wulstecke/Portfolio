@@ -1,5 +1,8 @@
 <script setup lang="ts">
+// COMPONENTS
 import SkillScroller from './SkillScroller.vue'
+
+// DATA
 import data from '@/assets/data/data.json'
 
 const skills = data.skills

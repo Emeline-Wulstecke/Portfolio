@@ -1,6 +1,11 @@
 <script setup lang="ts">
+// VUE
 import { ref, onMounted, onUnmounted } from 'vue'
+
+// COMPONENTS
 import BaseTooltip from '../../atoms/BaseTooltip.vue'
+
+// TYPES
 import type { Skill } from './Skill.types'
 
 const { skills } = defineProps<{ skills: Skill[] }>()

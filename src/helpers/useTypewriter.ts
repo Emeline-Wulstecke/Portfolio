@@ -21,7 +21,7 @@ export function useTypewriter(source: Ref<string | undefined>, opts: TypewriterO
 
   const text = source
   const displayed = ref('')
-  const finished = ref(false) // 👈 nouvel état
+  const finished = ref(false)
   let timer: number | null = null
   let i = 0
   let running = false
@@ -39,7 +39,7 @@ export function useTypewriter(source: Ref<string | undefined>, opts: TypewriterO
       displayed.value = content.slice(0, i++)
       timer = window.setTimeout(() => type(content), typingSpeed)
     } else {
-      finished.value = true // 👈 marqué comme terminé
+      finished.value = true
       if (loop) {
         finished.value = false
         timer = window.setTimeout(() => erase(content), pauseMs)

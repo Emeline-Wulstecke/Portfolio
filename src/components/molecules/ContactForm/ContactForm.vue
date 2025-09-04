@@ -125,13 +125,13 @@ const handleSubmit = async () => {
   isSubmitting.value = true
 
   try {
-    await emailjs.send(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (emailjs as any).send(
       import.meta.env.VITE_EMAILJS_SERVICE_ID,
       import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
       form.value,
       import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
     )
-
     messageSent.value = true
     resetForm()
   } catch (error) {
