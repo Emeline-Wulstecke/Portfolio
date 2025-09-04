@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import emailjs from '@emailjs/browser'
-import { ref } from 'vue'
+
+// VUE
+import { ref, watch, computed, nextTick } from 'vue'
+
+// COMPONENTS
+import BaseButton from '@/components/atoms/BaseButton.vue'
 import BaseToaster from '@/components/atoms/BaseToaster.vue'
+import FormSuccess from '@/components/molecules/ContactForm/FormSuccess.vue'
+import BaseTooltip from '@/components/atoms/BaseTooltip.vue'
+
+// Helpers & types
+import { validateEmail, validateMessage } from '@/helpers/useValidation'
 import type { ContactFormData } from './ContactForm.types'
 
 const form = ref<ContactFormData>({
@@ -10,28 +20,109 @@ const form = ref<ContactFormData>({
   message: '',
 })
 
+const isSubmitting = ref(false)
+const messageSent = ref(false)
 const showToast = ref(false)
 const toastMessage = ref('')
-const toastType = ref<'success' | 'error'>('success')
+const toastType = ref<'success' | 'error'>('error')
+
+const emailError = ref('')
+const messageError = ref('')
+
+const nameInputRef = ref<HTMLInputElement | null>(null)
+const emailInputRef = ref<HTMLInputElement | null>(null)
+const messageTextareaRef = ref<HTMLTextAreaElement | null>(null)
+
+const isHoveringButton = ref(false)
+const isFocusingButton = ref(false)
+
+const showTooltip = computed(() => {
+  return isFormInvalid.value && (isHoveringButton.value || isFocusingButton.value)
+})
+
+watch(
+  () => form.value.email,
+  (val) => {
+    const trimmed = val.trim()
+    if (trimmed === '') {
+      emailError.value = ''
+      return
+    }
+    if (!trimmed.includes('@')) {
+      emailError.value = 'Veuillez saisir une adresse e-mail valide.'
+      return
+    }
+    emailError.value = validateEmail(trimmed) ? '' : 'Veuillez entrer une adresse e-mail valide.'
+  },
+)
+
+watch(
+  () => form.value.message,
+  (val) => {
+    messageError.value = validateMessage(val)
+  },
+)
+
+const isFormInvalid = computed(() => {
+  const isEmailFilled = form.value.email.trim() !== ''
+  const isMessageFilled = form.value.message.trim() !== ''
+  const isNameFilled = form.value.name.trim().length >= 2
+
+  return (
+    isSubmitting.value ||
+    !isEmailFilled ||
+    !isMessageFilled ||
+    !isNameFilled ||
+    emailError.value !== '' ||
+    messageError.value !== ''
+  )
+})
+
+const messageLength = computed(() => form.value.message.length)
 
 const resetForm = () => {
   form.value = { name: '', email: '', message: '' }
+  emailError.value = ''
+  messageError.value = ''
 }
 
-const validateEmail = (email: string) => {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return re.test(email)
+const resetToForm = () => {
+  messageSent.value = false
+  nextTick(() => {
+    nameInputRef.value?.focus()
+  })
 }
 
 const handleSubmit = async () => {
-  const { name, email, message } = form.value
+  // Validation finale au submit (au cas où)
+  const emailTrimmed = form.value.email.trim()
+  if (emailTrimmed === '' || !emailTrimmed.includes('@')) {
+    emailError.value = 'Veuillez saisir une adresse e-mail valide.'
+  } else {
+    emailError.value = validateEmail(emailTrimmed)
+      ? ''
+      : 'Veuillez entrer une adresse e-mail valide.'
+  }
+  messageError.value = validateMessage(form.value.message)
 
-  if (name.trim().length < 2 || !validateEmail(email) || message.trim().length < 5) {
+  if (isFormInvalid.value) {
     toastMessage.value = 'Veuillez remplir tous les champs correctement.'
     toastType.value = 'error'
     showToast.value = true
+
+    await nextTick(() => {
+      if (!form.value.name.trim()) {
+        nameInputRef.value?.focus()
+      } else if (emailError.value) {
+        emailInputRef.value?.focus()
+      } else if (messageError.value) {
+        messageTextareaRef.value?.focus()
+      }
+    })
     return
   }
+
+  isSubmitting.value = true
 
   try {
     await emailjs.send(
@@ -41,63 +132,141 @@ const handleSubmit = async () => {
       import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
     )
 
-    toastMessage.value = 'Message envoyé avec succès !'
-    toastType.value = 'success'
-    showToast.value = true
+    messageSent.value = true
     resetForm()
   } catch (error) {
     toastMessage.value = "Une erreur s'est produite."
     toastType.value = 'error'
     showToast.value = true
     console.error(error)
+  } finally {
+    isSubmitting.value = false
   }
 }
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit" class="space-y-4 max-w-xl mx-auto w-full px-4 md:px-0">
-    <div>
-      <label for="name" class="block text-sm font-medium text-gray-700">Nom</label>
-      <input
-        id="name"
-        type="text"
-        v-model="form.name"
-        required
-        minlength="2"
-        class="w-full border-b border-gray-300 focus:outline-none focus:ring focus:ring-indigo-500 bg-transparent"
-      />
-    </div>
+  <div class="space-y-4 w-full">
+    <Transition name="fade" mode="out-in">
+      <form v-if="!messageSent" @submit.prevent="handleSubmit" class="space-y-4" key="form">
+        <h2 class="text-xl md:text-2xl font-bold text-[var(--secondary-color)] mb-4 text-center">
+          Me contacter
+        </h2>
 
-    <div>
-      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-      <input
-        id="email"
-        type="email"
-        v-model="form.email"
-        required
-        class="w-full border-b border-gray-300 focus:outline-none focus:ring focus:ring-indigo-500 bg-transparent"
-      />
-    </div>
+        <!-- Nom -->
+        <div>
+          <label
+            for="name"
+            class="block text-sm md:text-lg font-bold text-[var(--secondary-color)]"
+          >
+            Nom
+          </label>
+          <input
+            id="name"
+            type="text"
+            v-model="form.name"
+            ref="nameInputRef"
+            required
+            minlength="2"
+            class="w-full border-b border-gray-300 bg-transparent focus:outline-none focus:ring focus:ring-indigo-500"
+          />
+        </div>
 
-    <div>
-      <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-      <textarea
-        id="message"
-        v-model="form.message"
-        required
-        minlength="5"
-        rows="4"
-        class="w-full border-b border-gray-300 focus:outline-none focus:ring focus:ring-indigo-500 bg-transparent"
-      />
-    </div>
+        <!-- Email -->
+        <div>
+          <label
+            for="email"
+            class="block text-sm md:text-lg font-bold text-[var(--secondary-color)]"
+          >
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            v-model="form.email"
+            ref="emailInputRef"
+            required
+            class="w-full border-b border-gray-300 bg-transparent focus:outline-none focus:ring focus:ring-indigo-500"
+            :aria-invalid="!!emailError"
+            :aria-describedby="emailError ? 'email-error' : undefined"
+          />
+          <p v-if="emailError" id="email-error" class="text-red-600 text-sm mt-1" role="alert">
+            {{ emailError }}
+          </p>
+        </div>
 
-    <button
-      type="submit"
-      class="mt-4 bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition"
-    >
-      Envoyer
-    </button>
+        <!-- Message -->
+        <div>
+          <label
+            for="message"
+            class="block text-sm md:text-lg font-bold text-[var(--secondary-color)]"
+          >
+            Message
+          </label>
+          <textarea
+            id="message"
+            v-model="form.message"
+            ref="messageTextareaRef"
+            required
+            minlength="5"
+            maxlength="3000"
+            rows="4"
+            class="w-full border-b border-gray-300 bg-transparent focus:outline-none focus:ring focus:ring-indigo-500"
+            :aria-invalid="!!messageError"
+            :aria-describedby="messageError ? 'message-error' : undefined"
+          />
+          <div class="flex justify-between items-center mt-1">
+            <p v-if="messageError" id="message-error" class="text-red-600 text-sm" role="alert">
+              {{ messageError }}
+            </p>
+            <span class="text-xs text-gray-500 ml-auto">{{ messageLength }} / 3000</span>
+          </div>
+        </div>
 
-    <BaseToaster v-if="showToast" :message="toastMessage" :type="toastType" position="top-right" />
-  </form>
+        <div class="flex justify-center">
+          <div class="relative group">
+            <BaseButton
+              type="submit"
+              text="Envoyer"
+              size="medium"
+              :loading="isSubmitting"
+              :disabled="isFormInvalid"
+              class="mt-4"
+              @mouseenter="isHoveringButton = true"
+              @mouseleave="isHoveringButton = false"
+              @focus="isFocusingButton = true"
+              @blur="isFocusingButton = false"
+            />
+
+            <BaseTooltip
+              v-if="showTooltip"
+              content="Veuillez remplir tous les champs"
+              placement="top"
+            />
+          </div>
+        </div>
+
+        <!-- Toaster erreurs -->
+        <BaseToaster
+          v-if="showToast && toastType === 'error'"
+          :message="toastMessage"
+          :type="toastType"
+          position="top-right"
+        />
+      </form>
+
+      <FormSuccess v-else key="confirmation" @back="resetToForm" />
+    </Transition>
+  </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
