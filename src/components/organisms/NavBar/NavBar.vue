@@ -30,7 +30,7 @@ const toggle = () => (open.value = !open.value)
       class="mx-auto max-w-6xl px-4 flex flex-col items-center gap-4"
       aria-label="Navigation principale"
     >
-      <!-- Logo + Burger (mobile) -->
+      <!-- Mobile Top Bar -->
       <div class="w-full flex items-center justify-between lg:hidden">
         <RouterLink to="/" class="flex justify-center items-center gap-3 mx-auto">
           <BaseLogo />
@@ -49,21 +49,21 @@ const toggle = () => (open.value = !open.value)
         </button>
       </div>
 
-      <!-- Desktop nav -->
+      <!-- Desktop Navigation -->
       <div class="hidden lg:grid lg:grid-cols-3 lg:items-center lg:w-full">
-        <!-- Liens internes (col 1, gauche) -->
+        <!-- Liens internes -->
         <ul class="flex flex-row gap-6 justify-start">
           <li v-for="item in internalLinks" :key="item.href">
             <a
               :href="item.href"
-              class="transition hover:font-semibold hover:text-[var(--tertiary-color)] hover:scale-110"
+              class="inline-block text-xl text-black transition-transform duration-200 hover:scale-110 hover:text-[var(--tertiary-color)]"
             >
               {{ item.label }}
             </a>
           </li>
         </ul>
 
-        <!-- Logo (col 2, centre) -->
+        <!-- Logo -->
         <div class="flex justify-center">
           <RouterLink to="/" class="flex items-center gap-3">
             <BaseLogo />
@@ -71,17 +71,17 @@ const toggle = () => (open.value = !open.value)
           </RouterLink>
         </div>
 
-        <!-- Liens sociaux (col 3, droite) -->
-        <ul class="flex flex-row gap-6 justify-end text-black">
+        <!-- Liens sociaux -->
+        <ul class="flex flex-row gap-6 justify-end">
           <li v-for="(link, idx) in links" :key="idx">
             <a
               :href="link.url"
               target="_blank"
               rel="noopener noreferrer"
-              class="transition hover:scale-110"
               :aria-label="link.name"
+              class="inline-block text-xl text-black transition-transform duration-200 hover:scale-110 hover:text-[var(--tertiary-color)]"
             >
-              <font-awesome-icon :icon="iconFor(link.name)" aria-hidden="true" class="text-xl" />
+              <font-awesome-icon :icon="iconFor(link.name)" class="text-xl" aria-hidden="true" />
             </a>
           </li>
         </ul>
@@ -109,11 +109,11 @@ const toggle = () => (open.value = !open.value)
               :href="link.url"
               target="_blank"
               rel="noopener noreferrer"
-              class="transition hover:scale-110"
               :aria-label="link.name"
+              class="inline-block transition-transform duration-200 text-black hover:scale-110 hover:text-[var(--tertiary-color)]"
               @click="open = false"
             >
-              <font-awesome-icon :icon="iconFor(link.name)" aria-hidden="true" class="text-xl" />
+              <font-awesome-icon :icon="iconFor(link.name)" class="text-xl" aria-hidden="true" />
             </a>
           </li>
         </ul>
@@ -122,7 +122,7 @@ const toggle = () => (open.value = !open.value)
   </header>
 </template>
 
-<style>
+<style scoped>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.15s;

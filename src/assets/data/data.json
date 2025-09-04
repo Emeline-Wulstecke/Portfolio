@@ -15,7 +15,7 @@
     ],
     "email": {
         "url": "mailto:emeline.wulstecke@gmail.com",
-        "icon": "fa-regular fa-envelope",
+        "icon": "fa-solid fa-envelope",
         "alt": "Email Icon"
     },
     "skills": [

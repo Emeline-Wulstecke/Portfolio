@@ -6,6 +6,8 @@ import AboutMe from './components/organisms/AboutMe/AboutMe.vue'
 import ProjectSlider from './components/molecules/ProjectSlider.vue'
 import SkillsSelection from './components/molecules/SkillSelection/SkillSelection.vue'
 import ContactSection from './components/organisms/ContactSection/ContactSection.vue'
+import ScrollToTop from './components/atoms/ScrollToTop.vue'
+import FooterSection from './components/organisms/Footer/FooterSection.vue'
 </script>
 
 <template>
@@ -22,6 +24,8 @@ import ContactSection from './components/organisms/ContactSection/ContactSection
       <ProjectSlider />
       <SkillsSelection />
       <ContactSection />
+      <ScrollToTop />
     </main>
+    <FooterSection />
   </div>
 </template>

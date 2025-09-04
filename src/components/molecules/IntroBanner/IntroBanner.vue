@@ -42,7 +42,7 @@ const { displayed: displayedSubtitle } = useTypewriter(subtitle, {
       <h1 class="text-xs md:text-3xl font-bold uppercase tracking-wide text-black">
         <span :class="{ 'type-cursor': !finishedTitle }">{{ displayedTitle }}</span>
       </h1>
-      <p v-if="props.subtitle" class="text-sm md:text-xl text-black">
+      <p v-if="props.subtitle" class="text-sm mt-2 text-black md:text-xl md:mt-8">
         <span class="type-cursor">{{ displayedSubtitle }}</span>
       </p>
     </div>

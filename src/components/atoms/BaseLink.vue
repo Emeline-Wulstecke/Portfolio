@@ -3,7 +3,7 @@
     :href="url"
     v-bind="isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}"
     :aria-label="ariaLabel || undefined"
-    class="text-[var(--secondary-color)] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black focus-visible:ring-offset-[var(--primary-color)]"
+    class="inline-block transition duration-300 ease-in-out hover:scale-110 focus:scale-110"
   >
     <slot>{{ content }}</slot>
   </a>
