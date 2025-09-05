@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // IMAGES
-import logoUrl from '@/assets/images/logo.webp'
+import logoUrl from '/images/logo.webp'
 
 const props = defineProps<{
   src?: string
