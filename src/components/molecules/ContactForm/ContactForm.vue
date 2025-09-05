@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import emailjs from '@emailjs/browser'
-
 // VUE
 import { ref, watch, computed, nextTick } from 'vue'
 
@@ -14,10 +12,14 @@ import BaseTooltip from '@/components/atoms/BaseTooltip.vue'
 import { validateEmail, validateMessage } from '@/helpers/useValidation'
 import type { ContactFormData } from './ContactForm.types'
 
+// ---------- FormSubmit ----------
+const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/emeline.wulstecke@gmail.com'
+
 const form = ref<ContactFormData>({
   name: '',
   email: '',
   message: '',
+  _honey: '', // champ invisible anti-bot
 })
 
 const isSubmitting = ref(false)
@@ -36,9 +38,24 @@ const messageTextareaRef = ref<HTMLTextAreaElement | null>(null)
 const isHoveringButton = ref(false)
 const isFocusingButton = ref(false)
 
-const showTooltip = computed(() => {
-  return isFormInvalid.value && (isHoveringButton.value || isFocusingButton.value)
+const isFormInvalid = computed(() => {
+  const isEmailFilled = form.value.email.trim() !== ''
+  const isMessageFilled = form.value.message.trim() !== ''
+  const isNameFilled = form.value.name.trim().length >= 2
+  return (
+    isSubmitting.value ||
+    !isEmailFilled ||
+    !isMessageFilled ||
+    !isNameFilled ||
+    emailError.value !== '' ||
+    messageError.value !== ''
+  )
 })
+
+const showTooltip = computed(
+  () => isFormInvalid.value && (isHoveringButton.value || isFocusingButton.value),
+)
+const messageLength = computed(() => form.value.message.length)
 
 watch(
   () => form.value.email,
@@ -55,7 +72,6 @@ watch(
     emailError.value = validateEmail(trimmed) ? '' : 'Veuillez entrer une adresse e-mail valide.'
   },
 )
-
 watch(
   () => form.value.message,
   (val) => {
@@ -63,38 +79,18 @@ watch(
   },
 )
 
-const isFormInvalid = computed(() => {
-  const isEmailFilled = form.value.email.trim() !== ''
-  const isMessageFilled = form.value.message.trim() !== ''
-  const isNameFilled = form.value.name.trim().length >= 2
-
-  return (
-    isSubmitting.value ||
-    !isEmailFilled ||
-    !isMessageFilled ||
-    !isNameFilled ||
-    emailError.value !== '' ||
-    messageError.value !== ''
-  )
-})
-
-const messageLength = computed(() => form.value.message.length)
-
 const resetForm = () => {
-  form.value = { name: '', email: '', message: '' }
+  form.value = { name: '', email: '', message: '', _honey: '' }
   emailError.value = ''
   messageError.value = ''
 }
-
 const resetToForm = () => {
   messageSent.value = false
-  nextTick(() => {
-    nameInputRef.value?.focus()
-  })
+  nextTick(() => nameInputRef.value?.focus())
 }
 
 const handleSubmit = async () => {
-  // Validation finale au submit (au cas où)
+  // validations finales
   const emailTrimmed = form.value.email.trim()
   if (emailTrimmed === '' || !emailTrimmed.includes('@')) {
     emailError.value = 'Veuillez saisir une adresse e-mail valide.'
@@ -109,36 +105,54 @@ const handleSubmit = async () => {
     toastMessage.value = 'Veuillez remplir tous les champs correctement.'
     toastType.value = 'error'
     showToast.value = true
-
     await nextTick(() => {
-      if (!form.value.name.trim()) {
-        nameInputRef.value?.focus()
-      } else if (emailError.value) {
-        emailInputRef.value?.focus()
-      } else if (messageError.value) {
-        messageTextareaRef.value?.focus()
-      }
+      if (!form.value.name.trim()) nameInputRef.value?.focus()
+      else if (emailError.value) emailInputRef.value?.focus()
+      else if (messageError.value) messageTextareaRef.value?.focus()
     })
     return
   }
 
-  isSubmitting.value = true
+  // anti-bot: si le honeypot est rempli, on "réussit" silencieusement
+  if (form.value._honey) {
+    messageSent.value = true
+    resetForm()
+    return
+  }
 
+  isSubmitting.value = true
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await (emailjs as any).send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      form.value,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-    )
+    // payload accepté par FormSubmit en JSON
+    const payload = {
+      name: form.value.name,
+      email: form.value.email,
+      message: form.value.message,
+
+      // options FormSubmit
+      _subject: `Nouveau message portfolio — ${form.value.name}`,
+      _template: 'table',
+      _captcha: 'false',
+      _url: window.location.href, // page source
+    }
+
+    const res = await fetch(FORMSUBMIT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload),
+    })
+
+    if (!res.ok) {
+      const txt = await res.text()
+      throw new Error(txt || 'FormSubmit error')
+    }
+
     messageSent.value = true
     resetForm()
   } catch (error) {
-    toastMessage.value = "Une erreur s'est produite."
+    console.error(error)
+    toastMessage.value = "Une erreur s'est produite lors de l'envoi."
     toastType.value = 'error'
     showToast.value = true
-    console.error(error)
   } finally {
     isSubmitting.value = false
   }
@@ -152,6 +166,16 @@ const handleSubmit = async () => {
         <h2 class="text-xl md:text-2xl font-bold text-[var(--secondary-color)] mb-4 text-center">
           Me contacter
         </h2>
+
+        <!-- Anti-bot: si rempli par un robot, cela ignore la soumission -->
+        <input
+          type="text"
+          name="_honey"
+          v-model="(form as any)._honey"
+          style="display: none"
+          tabindex="-1"
+          autocomplete="off"
+        />
 
         <!-- Nom -->
         <div>
