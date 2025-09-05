@@ -12,6 +12,7 @@ export interface Project {
   url?: string
   github?: string
   category: string
+  problematiques: string[]
 }
 
 export interface ProjectCardProps {
