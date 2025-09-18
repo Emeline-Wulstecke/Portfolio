@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import projectData from '@/assets/data/data.json'
 import type { ProjectCardProps } from './BaseCard.types'
 import BaseCard from './BaseCard.vue'
@@ -8,17 +8,19 @@ const projects = projectData.portfolio as ProjectCardProps['project'][]
 const positionOffset = ref(0)
 const flippedIndex = ref<number | null>(null)
 
-const slideNext = () => {
+const slideNext = async () => {
   if (flippedIndex.value !== null) return
   positionOffset.value = (positionOffset.value + 1) % projects.length
+  await focusCurrentCard()
 }
 
-const slidePrev = () => {
+const slidePrev = async () => {
   if (flippedIndex.value !== null) return
   positionOffset.value = (positionOffset.value - 1 + projects.length) % projects.length
+  await focusCurrentCard()
 }
 
-function getCardPosition(index: number): number {
+const getCardPosition = (index: number): number => {
   const diff = index - positionOffset.value
   const half = Math.floor(projects.length / 2)
   if (diff > half) return diff - projects.length
@@ -26,30 +28,36 @@ function getCardPosition(index: number): number {
   return diff
 }
 
-// Ouvre/ferme la carte via le bouton +
 const toggleFlip = (index: number) => {
   flippedIndex.value = flippedIndex.value === index ? null : index
 }
 
-/**
- * Clic sur une slide :
- * si une autre carte est ouverte : on la ferme
- * on recentre la carte cliquée si nécessaire
- * on n’ouvre pas la nouvelle
- */
 const focusCard = (index: number) => {
   const pos = getCardPosition(index)
-
   if (flippedIndex.value !== null && flippedIndex.value !== index) {
-    // fermer la carte actuellement ouverte
     flippedIndex.value = null
   }
-
   if (pos !== 0) {
-    // recentrer la carte cliquée
     positionOffset.value = index
   }
 }
+
+const focusCurrentCard = async () => {
+  await nextTick()
+  const focusedCard = document.querySelector(
+    '[aria-roledescription="carousel"][tabindex="0"]',
+  ) as HTMLElement
+  focusedCard?.focus()
+}
+
+const handleArrowKeys = (e: KeyboardEvent) => {
+  if (flippedIndex.value !== null) return
+  if (e.key === 'ArrowLeft') slidePrev()
+  if (e.key === 'ArrowRight') slideNext()
+}
+
+onMounted(() => window.addEventListener('keydown', handleArrowKeys))
+onBeforeUnmount(() => window.removeEventListener('keydown', handleArrowKeys))
 </script>
 
 <template>
@@ -63,14 +71,19 @@ const focusCard = (index: number) => {
     </h2>
 
     <div class="relative w-full flex items-center justify-center min-h-[500px] overflow-hidden">
+      <!-- Flèche gauche -->
       <button
         @click="slidePrev"
+        :disabled="flippedIndex !== null"
+        :aria-disabled="flippedIndex !== null"
         aria-label="Projet précédent"
-        class="absolute left-4 z-20 bg-[var(--secondary-color)] text-white w-10 h-10 flex items-center justify-center rounded-full hover:scale-110 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black"
+        aria-keyshortcuts="ArrowLeft"
+        class="absolute left-4 z-20 bg-[var(--secondary-color)] text-white min-w-[44px] min-h-[44px] md:w-14 md:h-14 rounded-full flex items-center justify-center hover:scale-110 transition-transform focus-visible:outline-2 focus-visible:outline-black/80 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        ←
+        <span aria-hidden="true" class="text-xl md:text-2xl">←</span>
       </button>
 
+      <!-- Carrousel -->
       <div
         class="relative w-full h-[500px] max-w-[360px] sm:max-w-[600px] md:max-w-[800px] lg:max-w-[900px] mx-auto perspective-[2000px]"
       >
@@ -85,12 +98,13 @@ const focusCard = (index: number) => {
             'translate-x-[50%] z-5 scale-90 rotate-y-45 opacity-80': getCardPosition(index) === 1,
             'translate-x-[-250%] z-0 scale-75 opacity-0': getCardPosition(index) <= -2,
             'translate-x-[150%] z-0 scale-75 opacity-0': getCardPosition(index) >= 2,
-            'cursor-pointer': getCardPosition(index) !== 0, // pointer si pas au centre
+            'cursor-pointer': getCardPosition(index) !== 0,
           }"
           @click="focusCard(index)"
           @keydown.enter.space.prevent="focusCard(index)"
           role="button"
-          tabindex="0"
+          aria-roledescription="carousel"
+          :tabindex="getCardPosition(index) === 0 ? 0 : -1"
           :aria-label="`Recentre ${project.name}`"
         >
           <BaseCard
@@ -101,12 +115,16 @@ const focusCard = (index: number) => {
         </div>
       </div>
 
+      <!-- Flèche droite -->
       <button
         @click="slideNext"
+        :disabled="flippedIndex !== null"
+        :aria-disabled="flippedIndex !== null"
         aria-label="Projet suivant"
-        class="absolute right-4 z-20 bg-[var(--secondary-color)] text-white w-10 h-10 flex items-center justify-center rounded-full hover:scale-110 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black"
+        aria-keyshortcuts="ArrowRight"
+        class="absolute right-4 z-20 bg-[var(--secondary-color)] text-white min-w-[44px] min-h-[44px] md:w-14 md:h-14 rounded-full flex items-center justify-center hover:scale-110 transition-transform focus-visible:outline-2 focus-visible:outline-black/80 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        →
+        <span aria-hidden="true" class="text-xl md:text-2xl">→</span>
       </button>
     </div>
   </section>
