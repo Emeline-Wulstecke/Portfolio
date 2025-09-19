@@ -42,9 +42,9 @@ const { displayed: displayedSubtitle } = useTypewriter(subtitle, {
     </figure>
 
     <div
-      class="relative w-full z-10 px-4 top-[120px] right-[90px] text-center md:top-[220px] md:right-[230px]"
+      class="relative w-full z-10 px-4 top-[110px] right-[80px] text-center md:top-[220px] md:right-[170px] lg:right-[240px] lg:top-[250px]"
     >
-      <h1 class="text-xs md:text-3xl font-bold uppercase tracking-wide text-black">
+      <h1 class="text-xs md:text-2xl lg:text-3xl font-bold uppercase tracking-wide text-black">
         <span :class="{ 'type-cursor': !finishedTitle }">{{ displayedTitle }}</span>
       </h1>
       <p v-if="props.subtitle" class="text-sm mt-2 text-black md:text-xl md:mt-8">
